@@ -12,8 +12,8 @@ module PrependLoggerDecorator
     end
   
     [:debug, :info, :warn, :error, :fatal].each do |method|
-      define_method method do |msg, *args, &block|
-        @logger.send(method, "#{@prepend_msg} #{msg}", *args, &block)
+      define_method method do |msg = nil, &block|
+        @logger.send(method, "#{@prepend_msg}#{msg ? " #{msg}" : ""}", &block)
       end
     end
   end
